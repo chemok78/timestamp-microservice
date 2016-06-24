@@ -21,10 +21,15 @@ mongoose.connect(process.env.MONGO_URI);
 //connect to mondodb database using mongoose
 
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+//bind controllers middleware to the app object using static files in app/controllers
 app.use('/public', express.static(process.cwd() + '/public'));
+//bind static public files middelware to the app object using
 app.use('/common', express.static(process.cwd() + '/app/common'));
+//bind static files in app/common directory to the app object, which contains ajax-functions.js
+//process.cwd() is the current working directory
 
 app.use(session({
+//bind data to expression-session middleware	
 	secret: 'secretClementine',
 	resave: false,
 	saveUninitialized: true
@@ -36,6 +41,7 @@ app.use(passport.session());
 routes(app, passport);
 
 var port = process.env.PORT || 8080;
+//create server
 app.listen(port,  function () {
 	console.log('Node.js listening on port ' + port + '...');
 });
